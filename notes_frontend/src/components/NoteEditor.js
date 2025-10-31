@@ -49,19 +49,7 @@ export default function NoteEditor({ open, initial, onClose, onSave }) {
           }
         }}
       >
-        <div className="papernote__spiral" aria-hidden="true">
-          <svg viewBox="0 0 100 48" preserveAspectRatio="none">
-            {/* Simple repeated loops across width by using a pattern of circles via <defs> is complex; approximate with a polyline bar */}
-            <rect x="0" y="0" width="100" height="6" fill="rgba(0,0,0,0.65)"></rect>
-            {/* Decorative loops */}
-            {Array.from({ length: 12 }).map((_, i) => {
-              const cx = 6 + i * (100 / 12);
-              return (
-                <circle key={i} cx={cx} cy="22" r="6" stroke="var(--spiral)" strokeWidth="3" fill="transparent" />
-              );
-            })}
-          </svg>
-        </div>
+
 
         <div className="modal-header">
           <strong id="editor-title">{initial ? "Edit Note" : "New Note"}</strong>

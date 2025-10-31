@@ -252,12 +252,12 @@ a { color: inherit; }
   box-shadow: var(--elev-3), inset 0 0 40px rgba(0,0,0,0.25), inset 0 0 8px rgba(126,90,45,0.55);
   overflow: hidden;
   position: relative;
+  /* Preserve lined paper and side vignettes; remove top-hole highlight */
   background-image:
-    radial-gradient(closest-side at 50% 0%, rgba(0,0,0,0.25), rgba(0,0,0,0) 60%),
     radial-gradient(closest-side at 0% 50%, rgba(126,90,45,0.35), rgba(126,90,45,0) 60%),
     radial-gradient(closest-side at 100% 50%, rgba(126,90,45,0.35), rgba(126,90,45,0) 60%),
     repeating-linear-gradient(to bottom, rgba(160,138,102,0.45) 0px, rgba(160,138,102,0.45) 1px, rgba(160,138,102,0.0) 1px, rgba(160,138,102,0.0) 17px);
-  background-size: cover, cover, cover, auto;
+  background-size: cover, cover, auto;
 }
 .modal-header {
   display: flex;
@@ -269,7 +269,7 @@ a { color: inherit; }
   background: linear-gradient(to bottom, rgba(241,231,207,0.65), rgba(230,216,185,0.45));
 }
 .modal-body {
-  padding: 20px 16px 16px;
+  padding: 24px 16px 16px;
   overflow: auto;
 }
 .modal-footer {
