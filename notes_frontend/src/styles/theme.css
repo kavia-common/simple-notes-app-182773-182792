@@ -1,0 +1,342 @@
+:root {
+  /* Old Notepad Theme Variables (from assets/old_notepad_style_guide.md) */
+  --paper-bg: #e6d8b9;
+  --paper-wash: #f1e7cf;
+  --paper-stain: #d2be91;
+  --paper-burnt-edge: #7e5a2d;
+  --paper-shadow: rgba(0,0,0,0.18);
+
+  --rule-line: #a08a66;
+  --ink-primary: #2e261d; /* slightly darker for contrast */
+  --ink-secondary: #5a4b37;
+  --ink-muted: #7c6a52;
+
+  --spiral: #111111;
+  --accent-1: #b97a2a;
+  --accent-1-contrast: #fff5e6;
+  --accent-2: #6d4c1e;
+  --error: #8b2b2b;
+  --success: #236b36;
+
+  --app-bg: #17130d;
+  --panel-bg: rgba(255,255,255,0.03);
+
+  --elev-1: 0 1px 2px rgba(0,0,0,0.18);
+  --elev-2: 0 4px 10px rgba(0,0,0,0.28);
+  --elev-3: 0 8px 24px rgba(0,0,0,0.35);
+
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --focus-ring: #b97a2a;
+}
+
+/* Global resets and base styles */
+html, body, #root {
+  height: 100%;
+  background: var(--app-bg);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink-primary);
+}
+a { color: inherit; }
+
+.app-shell {
+  display: grid;
+  grid-template-rows: 64px 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "topbar"
+    "main";
+  height: 100%;
+}
+
+/* Header */
+.header {
+  grid-area: topbar;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 16px;
+  color: #f6efe2;
+  background: linear-gradient(to bottom, #3a2e22, #2b2218 60%, #1f1912);
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid rgba(0,0,0,0.4);
+  box-shadow: var(--elev-2);
+}
+.header__title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+}
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header__search {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #f6efe2;
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 14px;
+  min-width: 200px;
+}
+.header__search::placeholder { color: rgba(255,255,255,0.75); }
+
+/* Buttons */
+.btn {
+  appearance: none;
+  border: 1px solid rgba(0,0,0,0.25);
+  color: var(--accent-1-contrast);
+  background: linear-gradient(180deg, var(--accent-1) 0%, var(--accent-2) 100%);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 2px 4px rgba(0,0,0,0.25);
+  cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+}
+.btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+.btn:active { filter: brightness(0.95); transform: translateY(0); }
+.btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-secondary);
+  border: 1px dashed rgba(93,70,38,0.6);
+  box-shadow: none;
+}
+
+/* Main content */
+.main {
+  grid-area: main;
+  padding: 16px;
+}
+
+/* Notes grid */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+@media (max-width: 960px) {
+  .notes-grid { grid-template-columns: repeat(6, 1fr); }
+}
+@media (max-width: 600px) {
+  .notes-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Note card (list item) */
+.note-card {
+  grid-column: span 3;
+  background: linear-gradient(to bottom, rgba(241,231,207,0.95), rgba(230,216,185,0.95));
+  border: 1px solid rgba(126,90,45,0.25);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elev-1);
+  padding: 12px;
+  color: var(--ink-primary);
+  position: relative;
+  transform: rotate(-0.25deg);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  background-image:
+    linear-gradient(to bottom, rgba(241,231,207,0.95), rgba(230,216,185,0.95));
+  background-blend-mode: normal;
+  background-size: auto;
+}
+.note-card::after {
+  /* torn edge effect */
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 8px;
+  right: 8px;
+  height: 12px;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0));
+  background-size: 100% 100%;
+  opacity: 0.25;
+  pointer-events: none;
+}
+.note-card:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: var(--elev-2);
+}
+.note-card__title {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  color: var(--ink-primary);
+}
+.note-card__content {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-secondary);
+  max-height: 5.2em;
+  overflow: hidden;
+}
+.note-card__meta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--ink-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+}
+.icon-btn:hover { background: rgba(0,0,0,0.05); }
+.icon-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Floating Add Button */
+.fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--accent-1) 0%, var(--accent-2) 100%);
+  border: 1px solid rgba(0,0,0,0.25);
+  color: var(--accent-1-contrast);
+  font-size: 28px;
+  line-height: 0;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  cursor: pointer;
+  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+  z-index: 40;
+}
+.fab:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.fab:active { transform: translateY(0); filter: brightness(0.95); }
+.fab:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+/* Modal (Editor) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.modal-panel {
+  width: min(860px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  border-radius: var(--radius-lg);
+  background: var(--paper-bg);
+  color: var(--ink-primary);
+  box-shadow: var(--elev-3), inset 0 0 40px rgba(0,0,0,0.25), inset 0 0 8px rgba(126,90,45,0.55);
+  overflow: hidden;
+  position: relative;
+  background-image:
+    radial-gradient(closest-side at 50% 0%, rgba(0,0,0,0.25), rgba(0,0,0,0) 60%),
+    radial-gradient(closest-side at 0% 50%, rgba(126,90,45,0.35), rgba(126,90,45,0) 60%),
+    radial-gradient(closest-side at 100% 50%, rgba(126,90,45,0.35), rgba(126,90,45,0) 60%),
+    repeating-linear-gradient(to bottom, rgba(160,138,102,0.45) 0px, rgba(160,138,102,0.45) 1px, rgba(160,138,102,0.0) 1px, rgba(160,138,102,0.0) 17px);
+  background-size: cover, cover, cover, auto;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(126,90,45,0.25);
+  background: linear-gradient(to bottom, rgba(241,231,207,0.65), rgba(230,216,185,0.45));
+}
+.modal-body {
+  padding: 20px 16px 16px;
+  overflow: auto;
+}
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px 16px;
+  border-top: 1px solid rgba(126,90,45,0.2);
+  background: linear-gradient(to top, rgba(241,231,207,0.65), rgba(230,216,185,0.45));
+}
+
+/* Editor fields */
+.input-title {
+  width: 100%;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 8px 6px;
+  border-bottom: 1px dashed rgba(93,70,38,0.35);
+}
+.input-title::placeholder { color: var(--ink-muted); }
+.textarea-content {
+  width: 100%;
+  min-height: 300px;
+  resize: vertical;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 8px 6px 12px;
+  caret-color: var(--accent-2);
+}
+.textarea-content::placeholder { color: var(--ink-muted); }
+
+/* Confirm dialog */
+.confirm-panel {
+  width: min(420px, calc(100% - 24px));
+  border-radius: var(--radius-lg);
+  background: linear-gradient(to bottom, rgba(241,231,207,0.95), rgba(230,216,185,0.95));
+  border: 1px solid rgba(126,90,45,0.25);
+  color: var(--ink-primary);
+  box-shadow: var(--elev-3), inset 0 0 24px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+.confirm-header {
+  padding: 14px 16px;
+  font-weight: 800;
+  border-bottom: 1px solid rgba(126,90,45,0.25);
+}
+.confirm-body { padding: 16px; color: var(--ink-secondary); }
+.confirm-footer {
+  padding: 12px 16px 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Utilities */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}

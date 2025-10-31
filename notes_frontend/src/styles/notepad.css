@@ -1,0 +1,41 @@
+.papernote {
+  position: relative;
+  border-radius: 12px;
+  background: var(--paper-bg);
+  color: var(--ink-primary);
+  padding: 56px 16px 20px 16px;
+  background-image:
+    radial-gradient(closest-side at 50% 0%, rgba(0,0,0,0.25), rgba(0,0,0,0) 60%),
+    radial-gradient(closest-side at 0% 50%, rgba(126,90,45,0.35), rgba(126,90,45,0) 60%),
+    radial-gradient(closest-side at 100% 50%, rgba(126,90,45,0.35), rgba(126,90,45,0) 60%),
+    repeating-linear-gradient(to bottom, rgba(160,138,102,0.45) 0px, rgba(160,138,102,0.45) 1px, rgba(160,138,102,0.0) 1px, rgba(160,138,102,0.0) 17px);
+  background-size: cover, cover, cover, auto;
+  box-shadow:
+      0 8px 24px rgba(0,0,0,0.35),
+      inset 0 0 40px rgba(0,0,0,0.25),
+      inset 0 0 8px rgba(126,90,45,0.55);
+}
+
+.papernote__spiral {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  pointer-events: none;
+}
+.papernote__spiral svg {
+  width: 100%;
+  height: 48px;
+  display: block;
+  opacity: 0.95;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,0.15));
+}
+
+@media (max-width: 600px) {
+  .papernote { padding-top: 44px; }
+  .papernote__spiral, .papernote__spiral svg { height: 44px; }
+}
